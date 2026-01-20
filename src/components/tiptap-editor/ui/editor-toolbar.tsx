@@ -13,6 +13,7 @@ import {
   Quote,
   Redo,
   Strikethrough,
+  Table as TableIcon,
   Terminal,
   Underline as UnderlineIcon,
   Undo,
@@ -202,6 +203,18 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
         isActive={isBlockquote}
         icon={Quote}
         label="引用"
+      />
+      <ToolbarButton
+        onClick={() =>
+          editor
+            ?.chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+            .run()
+        }
+        isActive={editor?.isActive("table")}
+        icon={TableIcon}
+        label="插入表格"
       />
 
       <div className="h-4 w-px bg-border/50 mx-2"></div>

@@ -2,6 +2,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import { useCallback, useState } from "react";
 import InsertModal from "./ui/insert-modal";
 import EditorToolbar from "./ui/editor-toolbar";
+import { TableBubbleMenu } from "./ui/table-bubble-menu";
 import type {
   Extensions,
   JSONContent,
@@ -79,6 +80,8 @@ export function Editor({
         onLinkClick={openLinkModal}
         onImageClick={openImageModal}
       />
+
+      <TableBubbleMenu editor={editor} />
 
       <div className="relative min-h-125">
         <EditorContent editor={editor} />

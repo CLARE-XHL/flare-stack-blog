@@ -129,6 +129,8 @@ mark {
 
   --color-info: hsl(var(--info));
   --color-info-foreground: hsl(var(--info-foreground));
+
+  --color-selection: hsl(var(--selection));
 }
 
 @layer base {
@@ -141,8 +143,7 @@ mark {
   }
 
   ::selection {
-    background-color: hsl(var(--selection));
-    color: hsl(var(--selection-foreground));
+    @apply bg-selection text-selection-foreground;
   }
 
   p {
@@ -205,12 +206,11 @@ mark {
 
   /* Minimalist Custom Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    @apply w-1.5 h-1.5;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -227,15 +227,14 @@ input::-ms-reveal,
 input::-ms-clear,
 input::-webkit-contacts-auto-fill-button,
 input::-webkit-credentials-auto-fill-button {
-  display: none !important;
+  @apply hidden;
 }
 
 html.dark .shiki,
 html.dark .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
-  /* Optional, if you also want font styles */
-  font-style: var(--shiki-dark-font-style) !important;
+
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
@@ -248,21 +247,47 @@ html.dark .shiki span {
 
 /* Tiptap List Item Fix - 移除 <p> 的多余间距，改善点击体验 */
 .ProseMirror li > p {
-  margin: 0;
+  @apply m-0;
 }
 
 .ProseMirror li > p:first-child:last-child {
-  display: inline;
+  @apply inline;
+}
+
+/* Table Extension Styles */
+
+.ProseMirror table {
+  @apply border-collapse my-6 overflow-hidden table-fixed w-full;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+  @apply border border-border box-border min-w-[1em] px-2.5 py-2 relative align-top;
+}
+
+.ProseMirror th {
+  @apply bg-muted font-medium text-left text-muted-foreground;
+}
+
+.ProseMirror .selectedCell:after {
+  @apply absolute inset-0 content-[''] z-2 pointer-events-none bg-selection opacity-10;
+}
+
+.ProseMirror .column-resize-handle {
+  @apply absolute -bottom-0.5 -right-0.5 top-0 w-1 z-20 bg-blue-500 pointer-events-none;
+}
+
+.ProseMirror table p {
+  @apply m-0;
 }
 
 @layer utilities {
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    @apply w-1 h-1;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
@@ -291,7 +316,6 @@ html.dark .shiki span {
 }
 
 .highlight-active {
+  @apply relative scroll-mt-25;
   animation: highlight-flash 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  position: relative;
-  scroll-margin-top: 100px;
 }
