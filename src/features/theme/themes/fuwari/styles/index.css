@@ -5,6 +5,10 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   :root {
     --fuwari-radius-large: 1rem;
     --fuwari-content-delay: 150ms;
